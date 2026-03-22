@@ -17,14 +17,10 @@ jobs:
         with:
           python-version: '3.9'
 
-      - name: install dependencies
-        run: pip install -r cicd-assignments/task-1/requirements.txt
-
-      - name: run linting
-        run: flake8 cicd-assignments/task-1
-
-      - name: run unit tests
-        run: pytest cicd-assignments/task-1
-
-      - name: docker build check
-        run: docker build -t test-image -f cicd-assignments/task-1/Dockerfile cicd-assignments/task-1
+      - name: Setup and run checks
+        run: |
+          cd cicd-assignments/task-1  # adjust if capitalized
+          pip install -r requirements.txt
+          flake8 .
+          pytest
+          docker build -t test-image -f Dockerfile .
